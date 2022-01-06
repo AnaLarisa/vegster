@@ -1,14 +1,16 @@
+import { useEffect, useState } from "react";
+import {useParams} from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import { Add, Remove } from "@material-ui/icons";
 import styled from "styled-components";
+
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
-import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 //import { addRecipe } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
 
 const Container = styled.div``;
 
@@ -104,8 +106,8 @@ const Button = styled.button`
 `;
 
 const Recipe = () => {
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
+  const { id } = useParams();
+  // const id = location.pathname.split("/")[2];
   const [recipe, setRecipe] = useState({});
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();

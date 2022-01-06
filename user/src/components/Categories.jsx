@@ -1,4 +1,6 @@
 import styled from "styled-components";
+
+import { useCategoryContext } from '../contexts/RecipeContext';
 import { categories } from "../data";
 import { mobile } from "../responsive";
 import CategoryItem from "./CategoryItem";
