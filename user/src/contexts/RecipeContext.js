@@ -6,15 +6,15 @@ export const RecipeContext = createContext(undefined);
 const RecipeProvider = ({ children }) => {
     const [recipes, setRecipes] = useState([]);
     const [filters, setFilters] = useState({});
-    const [sort, setSort] = useState("newest");
+    const [sortType, setSortType] = useState("newest");
 
     const state = {
         recipes,
         setRecipes,
         filters,
         setFilters,
-        sort,
-        setSort
+        sortType,
+        setSortType
     };
 
     useEffect(async () => {

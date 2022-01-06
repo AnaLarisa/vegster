@@ -13,30 +13,24 @@ const Container = styled.div`
 `;
 
 const Recipes = () => {
-    const { recipes, filters } = useCategoryContext();
+    const { recipes, filters, sortType } = useCategoryContext();
 
-    // useEffect(() => {
-    //   if (sort === "newest") {
-    //     setFilteredRecipes((prev) =>
-    //         [...prev].sort((a, b) => a.createdAt - b.createdAt)
-    //     );
-    //   } else if (sort === "asc") {
-    //     setFilteredRecipes((prev) =>
-    //         [...prev].sort((a, b) => a.title.localeCompare(b.title))
-    //     );
-    //   } else {
-    //     setFilteredRecipes((prev) =>
-    //         [...prev].sort((a, b) => b.title.localeCompare(a.title))
-    //     );
-    //   }
-    // }, [sort]);
+    const getSortFunction = () => {
+        switch (sortType) {
+            case 'newest':
+                return (a, b) => a.createdAt - b.createdAt
+            case 'asc':
+                return (a, b) => a.title.localeCompare(b.title)
+            case 'desc':
+                return (a, b) => b.title.localeCompare(a.title)
+            default:
+                return () => true
+        }
+    }
 
     const filteredRecipes = Object.entries(filters).reduce((acc, [key, value]) => {
         return recipes.filter(item => item[key] === value);
-    }, recipes);
-
-    console.log(filters);
-    console.log("RESULT", filteredRecipes);
+    }, recipes).sort(getSortFunction());
 
     return (
         <Container id="recipes">

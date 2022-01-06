@@ -41,7 +41,7 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const RecipeList = () => {
-  const {setSort, filters, setFilters} = useCategoryContext();
+  const {setSortType, filters, setFilters} = useCategoryContext();
 
   const RESETS = {
     category: 'Recipe Type',
@@ -97,7 +97,7 @@ const RecipeList = () => {
         </Filter>
         <Filter>
           <FilterText>Sort Recipes:</FilterText>
-          <Select onChange={(e) => setSort(e.target.value)}>
+          <Select onChange={(e) => setSortType(e.target.value)}>
             <Option value="newest">Newest</Option>
             <Option value="asc">A to Z</Option>
             <Option value="desc">Z to A</Option>
