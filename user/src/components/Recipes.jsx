@@ -37,7 +37,7 @@ const Recipes = ({ cat, filters, sort }) => {
           (recipes.filter((item) =>
               (filters['type'] !== 'Recipe Type' ? item['categories'].includes(filters['type']): item['categories'])))
               .filter((item) =>
-              filters['difficulty'] !== 'Difficulty' ? item['difficulty'].includes(filters['difficulty']): item['difficulty'])
+              filters['difficulty'] !== 'Difficulty' ? item['difficulty'].includes(filters['difficulty']): item['categories'])
 
 
               //Object.entries(filters).every(([key, value]) => item[key] === value))
@@ -62,14 +62,12 @@ const Recipes = ({ cat, filters, sort }) => {
       }
     }, [sort]);
 
-    //const filters = [ type:undefined, difficulty:undefined]; //Object.entries pentru cand treci prin fiecare;  cat se vefica cu value
+    const filtersArray= { type:"Main meal", difficulty:undefined}; //Object.entries pentru cand treci prin fiecare;  cat se vefica cu value
 
     return (
         <Container id="recipes">
-          {cat
-              ? filteredRecipes.map((item) => <Recipe item={item} key={item.id} />)
-               :recipes
-                  //.filter()
+          {recipes
+                  .filter((item) => Object.entries(filtersArray).every(([key, value]) => filtersArray.value ? item[key] === value : true))
                   .slice(0, 8)
                   .map((item) => <Recipe item={item} key={item.id} />)}
         </Container>
