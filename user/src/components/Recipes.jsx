@@ -35,7 +35,6 @@ const Recipes = () => {
     return (
         <Container id="recipes">
             {filteredRecipes
-                .slice(0, 8)
                 .map((item) => <Recipe item={item} key={item.id} />)}
         </Container>
     );
