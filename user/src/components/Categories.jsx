@@ -1,4 +1,6 @@
 import styled from "styled-components";
+
+import { useCategoryContext } from '../contexts/RecipeContext';
 import { categories } from "../data";
 import { mobile } from "../responsive";
 import CategoryItem from "./CategoryItem";
@@ -12,10 +14,12 @@ const Container = styled.div`
 `;
 
 const Categories = () => {
+  const { setCategory } = useCategoryContext();
+
   return (
     <Container>
       {categories.map((item) => (
-        <CategoryItem item={item} key={item.id} />
+        <CategoryItem onClick={() => setCategory(item.cat)} item={item} key={item.id} />
       ))}
     </Container>
   );

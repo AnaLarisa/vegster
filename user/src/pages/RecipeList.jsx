@@ -1,11 +1,13 @@
+import React from "react";
 import styled from "styled-components";
+
+import { useCategoryContext } from "../contexts/RecipeContext";
 import Navbar from "../components/Navbar";
 import Recipes from "../components/Recipes";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
-import { useState } from "react";
-import {useLocation} from "react-router";
+
 
 const Container = styled.div``;
 
@@ -39,30 +41,40 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const RecipeList = () => {
-  const location = useLocation();
-  const cat = location.pathname.split("/")[2];
-  const [filters, setFilters] = useState({});
-  const [sort, setSort] = useState("newest");
+  const {setSort, filters, setFilters} = useCategoryContext();
+
+  const RESETS = {
+    category: 'Recipe Type',
+    difficulty: 'Difficulty'
+  }
 
   const handleFilters = (e) => {
     const value = e.target.value;
+    const name = e.target.name;
+
+    if (value === RESETS[name]) {
+      const newFilters = { ...filters };
+      delete newFilters[name];
+      setFilters(newFilters);
+      return;
+    }
+
     setFilters({
       ...filters,
-      [e.target.name]: value,
+      [name]: value,
     });
   };
-  console.log(filters);
 
   return (
     <Container>
       <Navbar />
-      <Title>{cat}</Title>
+      <Title>Recipes</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Recipes:</FilterText>
-          <Select name = "type" onChange={handleFilters}>
-            <Option >
-              Recipe Type
+          <Select name="category" onChange={handleFilters}>
+            <Option>
+              {RESETS.category}
             </Option>
             <Option>Main meal</Option>
             <Option>Appetizer</Option>
@@ -73,10 +85,10 @@ const RecipeList = () => {
             <Option>Salad</Option>
             <Option>Dessert</Option>
           </Select>
-          <Select name = "difficulty" onChange={handleFilters}>
-            <Option >
-              Difficulty
-            </Option >
+          <Select name="difficulty" onChange={handleFilters}>
+            <Option>
+              {RESETS.difficulty}
+            </Option>
             <Option>Super easy</Option>
             <Option>Easy</Option>
             <Option>Medium</Option>
@@ -92,7 +104,7 @@ const RecipeList = () => {
           </Select>
         </Filter>
       </FilterContainer>
-      <Recipes cat={cat} filters={filters} sort={sort} />
+      <Recipes />
       <Newsletter />
       <Footer />
     </Container>
