@@ -14,12 +14,10 @@ const Container = styled.div`
 `;
 
 const Categories = () => {
-  const { setCategory } = useCategoryContext();
-
   return (
     <Container>
       {categories.map((item) => (
-        <CategoryItem onClick={() => setCategory(item.cat)} item={item} key={item.id} />
+        <CategoryItem item={item} key={item.id} />
       ))}
     </Container>
   );

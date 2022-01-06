@@ -72,7 +72,7 @@ const RecipeList = () => {
       <FilterContainer>
         <Filter>
           <FilterText>Filter Recipes:</FilterText>
-          <Select name="category" onChange={handleFilters}>
+          <Select value={filters['category']} name="category" onChange={handleFilters}>
             <Option>
               {RESETS.category}
             </Option>

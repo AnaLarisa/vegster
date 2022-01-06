@@ -17,6 +17,8 @@ const RecipeProvider = ({ children }) => {
         setSortType
     };
 
+    console.log('filters', filters);
+
     useEffect(async () => {
         try {
             const res = await axios.get(`http://localhost:5000/api/recipes`);
